@@ -13,7 +13,7 @@
     </div>
     <div class="table_wrap table-hover">
       <table>
-        <caption>계약체결확인서 리스트</caption>
+        <caption>아이돌 리스트</caption>
         <colgroup>
           <col style="width: 10rem;">
         </colgroup>
@@ -23,7 +23,6 @@
             <th scope="col">Nick</th>
             <th scope="col">Company</th>
             <th scope="col">Gender</th>
-            <th scope="col">Age</th>
             <th scope="col">Birthday</th>
             <th scope="col">Country</th>
             <th scope="col">Religion</th>
@@ -38,8 +37,7 @@
             <td>{{ item.nick }}</td>
             <td>{{ item.company }}</td>
             <td>{{ item.gender }}</td>
-            <td>{{ item.age }}</td>
-            <td>{{ item.birthday }}</td>
+            <td>{{ item.birthday }} ({{ getManAge(item.birthday) }})</td>
             <td>{{ item.country }}</td>
             <td>{{ item.religion }}</td>
             <td>{{ item.natalArea }}</td>
@@ -120,7 +118,6 @@ export default {
           id: doc.id,
           ...doc.data()
         })
-        console.log(doc)
       })
     }
   }

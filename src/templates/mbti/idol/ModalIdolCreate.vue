@@ -21,26 +21,41 @@
       <div class="modalForm_wrap">
         <form action="" class="form">
           <fieldset>
-            <div class="modalRow row-4">
-              <div class="column column-2">
-                <label for="">일시</label>
-                <input type="text">
+            <div class="modalRow row-2">
+              <div class="column column-1">
+                <label for="본명">본명</label>
+                <input type="text" id="본명" v-model="idolForm.name">
               </div>
-              <div class="column">
-                <select name="" id="" class="full"></select>
-              </div>
-              <div class="column">
-                <select name="" id="" class="full"></select>
+              <div class="column column-1">
+                <label for="예명">예명</label>
+                <input type="text" id="예명" v-model="idolForm.nick">
               </div>
             </div>
 
-            <div class="modalRow">
-              <div class="column">
-                <label for="">제목</label>
-                <input type="text">
+            <div class="modalRow row-2">
+              <div class="column column-1">
+                <label for="생년월일">생년월일</label>
+                <input type="date" id="생년월일" v-model="idolForm.birthday">
+              </div>
+              <div class="column column-1">
+                <label for="성별">성별</label>
+                <select name="성별" id="성별" v-model="idolForm.gender">
+                  <option value="남자">남자</option>
+                  <option value="여자">여자</option>
+                </select>
               </div>
             </div>
 
+            <div class="modalRow row-2">
+              <div class="column column-1">
+                <label for="회사">회사</label>
+                <input type="text" id="회사" v-model="idolForm.company">
+              </div>
+              <div class="column column-1">
+                <label for="회사">회사</label>
+                <input type="text" id="회사">
+              </div>
+            </div>
           </fieldset>
         </form>
       </div>
@@ -62,7 +77,23 @@ export default {
     return {
       // rem 으로 작성
       width: '80',
-      height: '43'
+      height: '43',
+      idolForm: {
+        name: '',
+        nick: '',
+        company: '',
+        gender: '',
+        age: '',
+        birthday: moment().format('YYYY-MM-DD'),
+        country: '',
+        religion: '',
+        natalArea: '',
+        group: '',
+        mbti: '',
+        history: '',
+        keyword: [],
+        position: '',
+      }
     }
   },
   methods: {
