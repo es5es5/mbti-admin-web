@@ -3,7 +3,7 @@
     <!-- <div class="bookmark_wrap"></div> -->
     <router-link tag="h1" class="logo_wrap" to="/">
       <img src="@/assets/logo.svg" alt="logo" class="logoImg">
-      <em class="logoTxt">Seed</em>
+      <span class="logoTxt">MBTI</span>
     </router-link>
     <div class="menu_wrap">
       <ul class="menu">

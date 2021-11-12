@@ -30,9 +30,39 @@ const routes = [
   {
     path: '/main',
     name: 'Main',
-    redirect: 'main/contract',
+    redirect: 'main/mbti',
     component: MainLayout,
     children: [
+      {
+        path: 'mbti',
+        name: 'MBTI',
+        redirect: 'mbti/idol',
+        component: ContentsLayout,
+        meta: {
+          title: 'MBTI'
+        },
+        children: [
+          {
+            path: 'idol',
+            name: 'MBTI_아이돌',
+            redirect: 'idol/list',
+            meta: {
+              title: '아이돌'
+            },
+            component: () => import('@/templates/mbti/MBTILayout'),
+            children: [
+              {
+                path: 'list',
+                name: 'MBTI_아이돌_리스트',
+                meta: {
+                  title: '아이돌 리스트'
+                },
+                component: () => import('@/templates/mbti/idol/IdolList')
+              },
+            ]
+          }
+        ]
+      },
       {
         path: 'contract',
         name: '계약',
