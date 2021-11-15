@@ -16,33 +16,39 @@
         <caption>아이돌 리스트</caption>
         <colgroup>
           <col style="width: 10rem;">
+          <col style="width: 10rem;">
+          <col style="width: 10rem;">
+          <col style="width: 10rem;">
+          <col style="width: 10rem;">
+          <col style="width: 10rem;">
+          <col style="width: 10rem;">
+          <col style="width: 10rem;">
+          <col style="width: 10rem;">
         </colgroup>
         <thead>
           <tr>
             <th scope="col">MBTI</th>
-            <th scope="col">Name</th>
-            <th scope="col">Nick</th>
-            <th scope="col">Company</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Birthday</th>
-            <th scope="col">Country</th>
-            <th scope="col">Religion</th>
-            <th scope="col">natalArea</th>
-            <th scope="col">Group</th>
+            <th scope="col">본명</th>
+            <th scope="col">예명</th>
+            <th scope="col">회사</th>
+            <th scope="col">그룹</th>
+            <th scope="col">생년월일</th>
+            <th scope="col">국가</th>
+            <th scope="col">태생</th>
+            <th scope="col">종교</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in idol" :key="index" @click="showModalIdolUpdate(item.id)">
             <td>{{ item.mbti }}</td>
-            <td>{{ item.name }}</td>
+            <td>{{ item.name }} ({{ item.gender }})</td>
             <td>{{ item.nick }}</td>
             <td>{{ item.company }}</td>
-            <td>{{ item.gender }}</td>
+            <td>{{ item.group }}</td>
             <td>{{ item.birthday }} ({{ getManAge(item.birthday) }})</td>
             <td>{{ item.country }}</td>
-            <td>{{ item.religion }}</td>
             <td>{{ item.natalArea }}</td>
-            <td>{{ item.group }}</td>
+            <td>{{ item.religion }}</td>
           </tr>
           <!-- <no-data-message :list="docList.contents" :colspan="24"></no-data-message> -->
         </tbody>
