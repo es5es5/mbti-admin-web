@@ -145,7 +145,7 @@ export default {
       }
     },
     async doCreate () {
-      await setDoc(doc(firestore, 'idol', this.COMMON.UUID()), this.idolForm)
+      await setDoc(doc(firestore, process.env.VUE_APP_FIRESTORE_COLLECTION, this.COMMON.UUID()), this.idolForm)
       this.initData()
     },
   }

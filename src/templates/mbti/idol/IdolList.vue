@@ -112,7 +112,7 @@ export default {
       })
     },
     async getIdolList () {
-      const querySnapshot = await getDocs(collection(firestore, 'idol'))
+      const querySnapshot = await getDocs(collection(firestore, process.env.VUE_APP_FIRESTORE_COLLECTION))
       querySnapshot.forEach((doc) => {
         this.idol.push({
           id: doc.id,
