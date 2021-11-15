@@ -19,6 +19,7 @@
         </colgroup>
         <thead>
           <tr>
+            <th scope="col">MBTI</th>
             <th scope="col">Name</th>
             <th scope="col">Nick</th>
             <th scope="col">Company</th>
@@ -28,11 +29,11 @@
             <th scope="col">Religion</th>
             <th scope="col">natalArea</th>
             <th scope="col">Group</th>
-            <th scope="col">Mbti</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in idol" :key="index" @click="showModalIdolUpdate(item.id)">
+            <td>{{ item.mbti }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.nick }}</td>
             <td>{{ item.company }}</td>
@@ -42,7 +43,6 @@
             <td>{{ item.religion }}</td>
             <td>{{ item.natalArea }}</td>
             <td>{{ item.group }}</td>
-            <td>{{ item.mbti }}</td>
           </tr>
           <!-- <no-data-message :list="docList.contents" :colspan="24"></no-data-message> -->
         </tbody>
