@@ -1,6 +1,6 @@
 <template>
   <modal
-    name="ModalIdolCreate"
+    name="ModalIdolUpdate"
     class="modal"
     adaptive
     reset
@@ -14,7 +14,7 @@
 
     <div class="header_wrap">
       <h3 class="header">아이돌 MBTI 등록</h3>
-      <div class="closeButton" @click="$modal.hide('ModalIdolCreate')"></div>
+      <div class="closeButton" @click="$modal.hide('ModalIdolUpdate')"></div>
     </div>
 
     <div class="content_wrap">
@@ -85,19 +85,26 @@
         </form>
       </div>
       <div class="action_wrap">
-        <button class="btn primary" @click="doCreate">등록</button>
+        <button class="btn error pull-left" @click="doDelete">삭제</button>
+        <button class="btn warning pull-right" @click="doUpdate">수정</button>
       </div>
     </div>
   </modal>
 </template>
 
 <script>
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore'
 import { firestore } from '@/plugins/firebase'
 
 export default {
-  name: 'ModalIdolCreate',
+  name: 'ModalIdolUpdate',
   created () {
+  },
+  props: {
+    id: {
+      type: String,
+      require: true
+    }
   },
   computed: {
   },
@@ -124,7 +131,9 @@ export default {
     }
   },
   methods: {
-    openEvent () {},
+    openEvent () {
+      this.getIdol()
+    },
     closeEvent () { this.$emit('callback') },
     initData () {
       this.idolForm = {
@@ -144,7 +153,21 @@ export default {
         position: '',
       }
     },
-    async doCreate () {
+    async getIdol () {
+      const docData = await getDoc(doc(firestore, process.env.VUE_APP_FIRESTORE_COLLECTION, this.id))
+      this.idolForm = docData.data()
+    },
+    async doDelete () {
+      if (confirm('삭제하시겠습니까?')) {
+        await deleteDoc(doc(firestore, process.env.VUE_APP_FIRESTORE_COLLECTION, this.id))
+        this.$modal.hide('ModalIdolUpdate')
+        this.$toast.success(
+          '삭제되었습니다.',
+          this.ToastSettings
+        )
+      }
+    },
+    async doUpdate () {
       if (
         this.idolForm.name === '' ||
         this.idolForm.mbti === '' ||
@@ -156,13 +179,13 @@ export default {
         )
         return false
       } else {
-        await setDoc(doc(firestore, process.env.VUE_APP_FIRESTORE_COLLECTION, this.COMMON.UUID()), this.idolForm)
+        await setDoc(doc(firestore, process.env.VUE_APP_FIRESTORE_COLLECTION, this.id), this.idolForm)
         this.initData()
         this.$toast.success(
-          '등록되었습니다.',
+          '수정되었습니다.',
           this.ToastSettings
         )
-        this.$emit('callback')
+        this.$modal.hide('ModalIdolUpdate')
       }
     },
   }

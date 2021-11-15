@@ -5,7 +5,7 @@
       <input type="text" placeholder="계약자명">
       <span class="separator">|</span>
 
-      <button type="button" class="btn-search" >검색</button>
+      <button type="button" class="btn-search" @click="getIdolList">검색</button>
     </div>
     <div class="action_wrap">
       <button type="button" class="btn primary" @click="showModalIdolCreate">등록</button>
@@ -32,7 +32,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in idol" :key="index">
+          <tr v-for="(item, index) in idol" :key="index" @click="showModalIdolUpdate(item.id)">
             <td>{{ item.name }}</td>
             <td>{{ item.nick }}</td>
             <td>{{ item.company }}</td>
@@ -54,16 +54,18 @@
         :callback="searchDocList">
       </Pagination> -->
       <span class="total">Total: {{ (idol.length || 0) | numberWithComma}}</span>
-      <ModalIdolCreate></ModalIdolCreate>
+      <ModalIdolCreate @callback="getIdolList" />
+      <ModalIdolUpdate :id="idolId" @callback="getIdolList" />
     </div>
   </main>
 </template>
 
 <script>
 /* eslint-disable */
-import { collection, getDocs, addDoc } from 'firebase/firestore'
+import { collection, getDocs } from "firebase/firestore";
 import { firestore } from '@/plugins/firebase'
 import ModalIdolCreate from './ModalIdolCreate'
+import ModalIdolUpdate from './ModalIdolUpdate'
 
 export default {
   name: 'IdolList',
@@ -71,10 +73,12 @@ export default {
     this.getIdolList()
   },
   components: {
-    ModalIdolCreate
+    ModalIdolCreate,
+    ModalIdolUpdate,
   },
   data () {
     return {
+      idolId: '',
       idol: [],
       searchForm: {
         page: 0,
@@ -98,6 +102,10 @@ export default {
     showModalIdolCreate() {
       this.$modal.show('ModalIdolCreate')
     },
+    showModalIdolUpdate(idolId) {
+      this.idolId = idolId
+      this.$modal.show('ModalIdolUpdate')
+    },
     goCreate () {
       this.$router.push({
         name: '계약_신계약_등록',
@@ -112,13 +120,15 @@ export default {
       })
     },
     async getIdolList () {
+      const list = []
       const querySnapshot = await getDocs(collection(firestore, process.env.VUE_APP_FIRESTORE_COLLECTION))
       querySnapshot.forEach((doc) => {
-        this.idol.push({
+        list.push({
           id: doc.id,
           ...doc.data()
         })
       })
+      this.idol = list
     }
   }
 }
