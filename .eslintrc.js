@@ -17,7 +17,7 @@ module.exports = {
   },
   globals: {
     moment: true,
-    '_': true,
+    _: true,
     daum: true
-	}
+  }
 }
