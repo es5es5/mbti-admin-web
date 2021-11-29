@@ -35,6 +35,9 @@
         </template>
       </ul>
     </div>
+    <p class="version">
+      Ver. {{ _version.version }}
+    </p>
   </aside>
 </template>
 
@@ -52,6 +55,7 @@ export default {
     }
   },
   computed: {
+    _version () { return require('@/../package.json') },
     _user () {
       return this.$store.getters.getUser
     }
@@ -72,6 +76,7 @@ export default {
 
 <style lang="scss" scoped>
 #sideBar {
+  position: relative;
   float: left;
   width: 180px;
   min-height: 100vh;
@@ -139,5 +144,13 @@ export default {
     padding: 5px 0 5px 30px;
     &:hover { color: #00B3EC; }
   }
+}
+
+.version {
+  position: absolute;
+  color: #fff;
+  font-size: 1rem;
+  bottom: 1rem;
+  right: 1rem;
 }
 </style>

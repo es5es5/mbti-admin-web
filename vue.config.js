@@ -4,6 +4,13 @@ const webpack = require('webpack')
 module.exports = {
   publicPath: process.env.VUE_APP_BASE_URL || '/',
   productionSourceMap: false,
+  pluginOptions: {
+    electronBuilder: {
+      builderOptions: {
+        publish: ['github']
+      }
+    }
+  },
   configureWebpack: {
     plugins: [
       new webpack.ProvidePlugin({
