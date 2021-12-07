@@ -17,6 +17,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "electron-log": "^4.4.1",
     "electron-updater": "^4.6.1",
     "firebase": "^9.4.1",
     "moment": "^2.29.1",
