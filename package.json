@@ -1,9 +1,11 @@
 {
   "name": "mbti-admin",
-  "version": "0.1.3",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "e:s": "vue-cli-service electron:serve",
+    "e:b": "vue-cli-service electron:build",
     "e:serve": "vue-cli-service electron:serve",
     "e:build": "vue-cli-service electron:build",
     "build": "vue-cli-service build",
