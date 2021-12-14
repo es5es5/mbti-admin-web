@@ -12,6 +12,27 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
 
+let win;
+
+function sendStatusToWindow(text) {
+  log.info(text);
+  win.webContents.send('message', text);
+}
+function createUpdateWindow() {
+  win = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+  win.webContents.openDevTools();
+  win.on('closed', () => {
+    win = null;
+  });
+  win.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
+  return win;
+}
+
 autoUpdater.on('checking-for-update', () => log.info('업데이트 확인 중...'))
 autoUpdater.on('update-available', info => {
   log.info('업데이트가 가능합니다.')
@@ -27,6 +48,21 @@ autoUpdater.on('download-progress', progressObj => {
   log.info(log_message)
 })
 autoUpdater.on('update-downloaded', (info) => {
+  createUpdateWindow()
+  sendStatusToWindow("Update downloaded");
+
+  const option = {
+    type: "question",
+    buttons: ["업데이트", "취소"],
+    defaultId: 0,
+    title: "electron-updater",
+    message: "업데이트가 있습니다. 프로그램을 업데이트 하시겠습니까?",
+  };
+  let btnIndex = dialog.showMessageBoxSync(updateWin, option);
+
+  if(btnIndex === 0) {
+    autoUpdater.quitAndInstall();
+  }
   log.info('업데이트가 완료되었습니다.')
 })
 
